@@ -20,7 +20,7 @@ const server = createServer();
 
 function db_request(res, query) {
     db.all(query, (err, rows) => {
-        console.log("Sent query " + query);
+        //console.log("Sent query " + query);
         if (err) {
             console.error(err.message);
             res.status(500).send('Internal server error');
@@ -38,7 +38,7 @@ function get_alerts(res, username) {
         console.log('undfeined');
         return;
     }
-    db_request(res, `select year, month, day, origin, dest, cabin, airline from flights where user_id=`+ maps[username] + " order by year, month, day, airline, origin, dest, cabin");
+    db_request(res, `select year, month, day, origin, dest, cabin, airline from flights where user_id=`+ maps[username] + " order by airline, origin, dest, cabin, year, month, day");
 }
 
 server.on('request', (req, res) => {
